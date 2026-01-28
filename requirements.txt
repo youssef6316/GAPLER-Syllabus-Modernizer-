@@ -1,8 +1,6 @@
 streamlit
-langgraph
-langchain
-langchain-core
-langchain-google-genai
-langchain-community
-tavily-python
-pypdf
+groq
+duckduckgo-search
+fpdf
+python-dotenv
+pandas
