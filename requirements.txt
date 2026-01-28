@@ -1,6 +1,9 @@
 streamlit
 groq
 duckduckgo-search
-fpdf
+reportlab
+PyPDF2
 python-dotenv
 pandas
+arabic-reshaper
+python-bidi

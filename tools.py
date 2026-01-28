@@ -1,59 +1,96 @@
-import os
 from duckduckgo_search import DDGS
-from fpdf import FPDF
+# Import your new generator entry point
+from pdf_generator import generate_course_plan_pdf
 
 
 # --- Tool 1: Internet Search ---
 def search_market_requirements(query):
     """
-    Searches for job requirements relevant to the course using DuckDuckGo.
+    Searches for job requirements relevant to the course.
     """
     try:
-        # Searching for 'job requirements' specifically
-        results = DDGS().text(f"{query} job requirements skills 2025", max_results=5)
+        results = DDGS().text(f"{query} job requirements skills 2024 2025", max_results=5)
         summary = ""
         for r in results:
             summary += f"- {r['title']}: {r['body']}\n"
         return summary
     except Exception as e:
-        return f"Search tool warning: {str(e)}. Proceeding with internal knowledge."
+        return f"Search tool warning: {str(e)}. Using general knowledge."
 
 
-# --- Tool 2: PDF Generator ---
-class ReportPDF(FPDF):
-    def header(self):
-        self.set_font('Arial', 'B', 15)
-        self.cell(0, 10, 'CMAS - Market-Aligned Course Plan', 0, 1, 'C')
-        self.ln(10)
+# --- Tool 2: PDF Parsing & Bridge ---
+def create_course_pdf(course_data, plan_text):
+    """
+    Converts the raw text from AI into the structured dict required by CMASPDFGenerator.
+    """
 
-    def footer(self):
-        self.set_y(-15)
-        self.set_font('Arial', 'I', 8)
-        self.cell(0, 10, f'Page {self.page_no()}', 0, 0, 'C')
+    # 1. Prepare Base Metadata
+    content_data = {
+        'title': course_data['title'],
+        'course_code': course_data['code'],
+        'duration': f"{course_data['duration']} Weeks",
+        'weekly_load': f"Lec: {course_data['lec']}h | Lab: {course_data['lab']}h",
+        'sections': []
+    }
 
+    # 2. Parse the Markdown Text into Sections
+    # We look for lines starting with '#' to create sections
+    lines = plan_text.split('\n')
+    current_section = None
 
-def create_course_pdf(course_data, plan_content):
-    pdf = ReportPDF()
-    pdf.add_page()
-    pdf.set_auto_page_break(auto=True, margin=15)
+    for line in lines:
+        line = line.strip()
+        if not line: continue
 
-    # Course Info
-    pdf.set_font("Arial", "B", 12)
-    pdf.cell(0, 10, f"Course: {course_data['title']} ({course_data['code']})", 0, 1)
-    pdf.set_font("Arial", "", 10)
-    pdf.multi_cell(0, 10,
-                   f"Duration: {course_data['duration']} weeks | Lec: {course_data['lec']}h | Tut: {course_data['tut']}h | Lab: {course_data['lab']}h")
-    pdf.ln(5)
+        # Main Section Header (e.g., # Lecture Plan)
+        if line.startswith('# '):
+            clean_title = line.replace('#', '').strip()
+            # Save previous section if exists
+            if current_section:
+                content_data['sections'].append(current_section)
 
-    # Content Body
-    # Note: Standard FPDF does not support Arabic characters.
-    # For a hackathon, output English, or use a library like 'reportlab' with .ttf fonts for Arabic.
-    pdf.set_font("Arial", "", 11)
+            # Start new section
+            current_section = {
+                'title': clean_title,
+                'content': []
+            }
+            continue
 
-    # Clean text to prevent latin-1 encoding errors common in PDFs
-    clean_content = plan_content.encode('latin-1', 'replace').decode('latin-1')
-    pdf.multi_cell(0, 7, clean_content)
+        # Sub Headers (e.g., ## Week 1)
+        if line.startswith('##'):
+            clean_sub = line.replace('#', '').strip()
+            if current_section:
+                current_section['content'].append({
+                    'type': 'header',
+                    'text': clean_sub
+                })
+            continue
 
+        # Bullet Points
+        if line.startswith('- ') or line.startswith('* '):
+            clean_item = line.replace('-', '').replace('*', '').strip()
+            if current_section:
+                current_section['content'].append({
+                    'type': 'bullet',
+                    'text': clean_item
+                })
+            continue
+
+        # Normal Text
+        if current_section:
+            # Simple bold removal for PDF cleanliness
+            clean_text = line.replace('**', '')
+            current_section['content'].append({
+                'type': 'text',
+                'text': clean_text
+            })
+
+    # Append the last section
+    if current_section:
+        content_data['sections'].append(current_section)
+
+    # 3. Generate PDF
     filename = f"CMAS_{course_data['code']}_Plan.pdf"
-    pdf.output(filename)
+    generate_course_plan_pdf(filename, content_data)
+
     return filename
