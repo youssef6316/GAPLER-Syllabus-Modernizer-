@@ -9,7 +9,7 @@ import PyPDF2
 if "GROQ_API_KEY" not in os.environ:
     os.environ["GROQ_API_KEY"] = "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"
 
-st.set_page_config(page_title="CMAS - Student Learning Path", layout="wide", page_icon="🎓")
+st.set_page_config(page_title="GAPLER - Student Learning Path", layout="wide", page_icon="🎓")
 
 # --- LOCALIZATION DICTIONARY ---
 UI_TEXT = {
@@ -38,7 +38,7 @@ UI_TEXT = {
         - Add any constraints
         """,
         "sb_about_md": """
-        **CMAS** uses AI to align your course with job market needs.
+        **GAPLER** uses AI to align your course with job market needs.
 
         **Powered by:**
         - GROQ API (Llama 3)
@@ -55,7 +55,7 @@ UI_TEXT = {
 
         # Main Headers
         "mode_student": "🎓 **Student Mode Active**",
-        "header_title": "🚀 CMAS: Career-Aligned Learning Path",
+        "header_title": "🚀 GAPLER: Career-Aligned Learning Path",
         "header_caption": "Tell us what you want to learn, and we'll build a market-ready syllabus for you.",
 
         # Form Labels
@@ -119,7 +119,7 @@ UI_TEXT = {
         - أضف أي قيود خاصة
         """,
         "sb_about_md": """
-        يستخدم **CMAS** الذكاء الاصطناعي لربط منهجك باحتياجات سوق العمل.
+        يستخدم **GAPLER** الذكاء الاصطناعي لربط منهجك باحتياجات سوق العمل.
 
         **يعمل بواسطة:**
         - GROQ API (Llama 3)
@@ -136,7 +136,7 @@ UI_TEXT = {
 
         # Main Headers
         "mode_student": "🎓 **وضع الطالب مفعل**",
-        "header_title": "🚀 CMAS: مسار تعليمي متوافق مع السوق",
+        "header_title": "🚀 GAPLER: مسار تعليمي متوافق مع السوق",
         "header_caption": "أخبرنا بما تريد تعلمه، وسنقوم بإنشاء منهج دراسي جاهز لسوق العمل.",
 
         # Form Labels

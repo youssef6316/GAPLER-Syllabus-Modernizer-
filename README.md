@@ -1,4 +1,4 @@
-# 🎓 CMAS: Career Market-Aligned Syllabus Generator
+# 🎓 GAPLER: Career Market-Aligned Syllabus Generator
 
 <div align="center">
 
@@ -34,9 +34,9 @@
 
 ## 🌟 Overview
 
-**CMAS (Career Market-Aligned Syllabus)** is an intelligent educational planning system that bridges the gap between academic curricula and real-world job market requirements. Using a sophisticated multi-agent AI architecture, CMAS analyzes current industry trends, researches job market demands, and generates comprehensive course plans that prepare students for actual career opportunities.
+**GAPLER (Career Market-Aligned Syllabus)** is an intelligent educational planning system that bridges the gap between academic curricula and real-world job market requirements. Using a sophisticated multi-agent AI architecture, GAPLER analyzes current industry trends, researches job market demands, and generates comprehensive course plans that prepare students for actual career opportunities.
 
-### Why CMAS?
+### Why GAPLER?
 
 - **Market-Driven**: Automatically researches current job requirements and industry trends
 - **AI-Powered**: Multi-agent system with specialized roles (Market Research, Curriculum Design, Quality Assurance)
@@ -135,8 +135,8 @@
 ### Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/cmas-course-generator.git
-cd cmas-course-generator
+git clone https://github.com/yourusername/GAPLER-course-generator.git
+cd GAPLER-course-generator
 ```
 
 ### Step 2: Create Virtual Environment (Recommended)
@@ -268,7 +268,7 @@ Industry: Banking and Financial Services
 ## 📁 Project Structure
 
 ```
-cmas-course-generator/
+GAPLER-course-generator/
 │
 ├── app.py                    # Main Streamlit application
 ├── agents.py                 # Multi-agent system implementation
@@ -280,7 +280,7 @@ cmas-course-generator/
 ├── .gitignore               # Git ignore rules
 │
 ├── generated_pdfs/           # Output directory (auto-created)
-│   └── CMAS_*.pdf           # Generated course plans
+│   └── GAPLER_*.pdf           # Generated course plans
 │
 └── assets/                   # UI assets (optional)
     └── logo.png
@@ -557,8 +557,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Contact & Support
 
-- **Issues**: [GitHub Issues](https://github.com/yourusername/cmas-course-generator/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/cmas-course-generator/discussions)
+- **Issues**: [GitHub Issues](https://github.com/yourusername/GAPLER-course-generator/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/yourusername/GAPLER-course-generator/discussions)
 - **Email**: your.email@example.com
 
 ---
