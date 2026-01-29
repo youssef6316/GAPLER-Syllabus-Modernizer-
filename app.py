@@ -8,7 +8,7 @@ import PyPDF2
 # --- CONFIGURATION: API KEY (HIDDEN) ---
 if "GROQ_API_KEY" not in os.environ:
     # Replace with your actual key if not set in environment variables
-    os.environ["GROQ_API_KEY"] = "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"
+    os.environ["GROQ_API_KEY"] = st.secrets["GROQ_API_KEY"]
 
 st.set_page_config(page_title="GAPLER - Student Learning Path", layout="wide", page_icon="🎓")
 
