@@ -27,7 +27,6 @@ def create_course_pdf(course_data, plan_text):
     # 1. Prepare Base Metadata
     content_data = {
         'title': course_data['title'],
-        'course_code': course_data['code'],
         'duration': f"{course_data['duration']} Weeks",
         'weekly_load': f"Lec: {course_data['lec']}h | Lab: {course_data['lab']}h",
         'sections': []
@@ -90,7 +89,7 @@ def create_course_pdf(course_data, plan_text):
         content_data['sections'].append(current_section)
 
     # 3. Generate PDF
-    filename = f"CMAS_{course_data['code']}_Plan.pdf"
+    filename = f"{course_data['title']}_Plan.pdf"
     generate_course_plan_pdf(filename, content_data)
 
     return filename

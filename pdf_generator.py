@@ -177,7 +177,7 @@ class CMASPDFGenerator:
         arabic_chars = sum(1 for char in text if '\u0600' <= char <= '\u06FF')
         return arabic_chars > len(text) * 0.3
 
-    def _create_header_footer(self, canvas, doc, course_code, page_num, is_arabic=False):
+    def _create_header_footer(self, canvas, doc, page_num, is_arabic=False):
         """Add header and footer to each page"""
         canvas.saveState()
         width, height = letter
@@ -226,7 +226,6 @@ class CMASPDFGenerator:
 
         # Title Data
         title = content_data.get('title', 'Course Plan')
-        course_code = content_data.get('course_code', 'CS0000')
         duration = content_data.get('duration', '15 Weeks')
         weekly_load = content_data.get('weekly_load', 'Lec: 2h | Lab: 3h')
 
@@ -242,7 +241,7 @@ class CMASPDFGenerator:
         story.append(Paragraph(title, style_title))
 
         # Add Subtitle details
-        details = f"{course_code}<br/>{duration}<br/>{weekly_load}"
+        details = f"<br/>{duration}<br/>{weekly_load}"
         if is_arabic:
             details = self._process_arabic_text(details)
         story.append(Paragraph(details, style_subtitle))
@@ -295,7 +294,7 @@ class CMASPDFGenerator:
         page_num = [1]
 
         def add_page_elements(canvas, doc):
-            self._create_header_footer(canvas, doc, course_code, page_num[0], is_arabic)
+            self._create_header_footer(canvas, doc, page_num[0], is_arabic)
             page_num[0] += 1
 
         doc.build(story, onFirstPage=add_page_elements, onLaterPages=add_page_elements)
