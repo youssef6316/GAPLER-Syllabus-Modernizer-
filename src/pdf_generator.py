@@ -30,7 +30,7 @@ class CMASPDFGenerator:
         try:
             # We attempt to download a known Arabic font if system fonts aren't found
             # (Added this fallback logic to ensure it works on cloud/streamlit share)
-            font_path = "Amiri-Regular.ttf"
+            font_path = "../assets/Amiri-Regular.ttf"
             if not os.path.exists(font_path):
                 import urllib.request
                 url = "https://github.com/google/fonts/raw/main/ofl/amiri/Amiri-Regular.ttf"
